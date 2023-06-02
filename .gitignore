@@ -2,3 +2,8 @@
 /.metals
 /.vscode
 /target
+
+*/.bloop
+*/.metals
+*/.vscode
+*/target
