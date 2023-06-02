@@ -1,0 +1,4 @@
+[debug] [scala-gh-build] Classpath dependencies List()
+[debug] [scala-gh-build] Dependencies from configurations List()
+[debug] Bloop wrote the configuration of project 'scala-gh-build' to 'C:\Users\Theoc\VSCodeProjects\scala-gh\project\.bloop\scala-gh-build.json'
+[success] Generated .bloop\scala-gh-build.json
