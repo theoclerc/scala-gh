@@ -1,3 +1,4 @@
+package model
 
 // Représente une personne avec un nom
 case class Person(name: String)
@@ -28,3 +29,4 @@ enum Currency {
 
 // Représente un restaurant avec un classement, un nom, une localisation, un nombre d'étoiles, un chef, un manager, un site web, un prix et une description
 case class Restaurant(ranking: Int, name: String, location: Location, stars: String, chef: Chef, manager: Manager, website: String, price: Price, description: String)
+
