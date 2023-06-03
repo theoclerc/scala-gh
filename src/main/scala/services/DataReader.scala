@@ -2,10 +2,10 @@ package services
 
 import com.github.tototoshi.csv._
 import java.io.File
-import scala.io.StdIn
-import model.{Person, Manager, Chef, Location, Price, Restaurant}
-import model.Currency
+import scala.collection.MapView
+import model.{Person, Manager, Chef, Location, Price, Restaurant, Currency}
 
+// Represents the data for a restaurant
 case class RestaurantData(
   ranking: Int,
   restaurant: String,
@@ -18,6 +18,7 @@ case class RestaurantData(
   description: String
 ) {
   override def toString: String = {
+    // Overrides the toString method to provide a formatted string representation of the data
     s"""
        |Ranking: $ranking
        |Restaurant: $restaurant
@@ -31,11 +32,20 @@ case class RestaurantData(
        |""".stripMargin
   }
 }
-object DataExploration {
-  def main(args: Array[String]): Unit = {
-    val reader = CSVReader.open(new File("data/02-50BestRestaurants.csv"))
+
+object DataReader {
+  /**
+   * Reads restaurant data from a CSV file.
+   *
+   * @param filePath The path to the CSV file.
+   * @return A list of RestaurantData objects representing the data from the file.
+   */
+  def readDataFromFile(filePath: String): List[RestaurantData] = {
+    val reader = CSVReader.open(new File(filePath))
     val header = reader.readNext()
     val rows = reader.all()
+
+    // Maps each row in the CSV file to a RestaurantData object
     val restaurantData = rows.map(row => {
       val data = row.map(_.trim)
       val stars = data(6) match {
@@ -54,52 +64,8 @@ object DataExploration {
         data(12)
       )
     })
+
     reader.close()
-
-    var choice = ""
-
-    while (choice != "Exit") {
-      println("Menu:")
-      println("1. Filter restaurants with more than 2 stars")
-      println("2. Calculate the average menu price in Euros")
-      println("3. Find the restaurant with the highest ranking")
-      println("4. Group restaurants by country")
-      println("5. Count the number of restaurants in each city")
-      println("Exit. Exit the program")
-      println("Enter the number or 'Exit' to choose the action you want to perform:")
-      choice = StdIn.readLine()
-
-      choice match {
-        case "1" =>
-          val highlyRatedRestaurants = restaurantData.filter(_.stars.exists(_ > 2))
-          println("Highly rated restaurants:")
-          highlyRatedRestaurants.foreach(println)
-        case "2" =>
-          val averagePrice = restaurantData.map(_.price.menu).sum.toDouble / restaurantData.length
-          println(s"Average menu price in Euros: $averagePrice")
-        case "3" =>
-          val highestRankingRestaurant = restaurantData.maxBy(_.ranking)
-          println("Restaurant with the highest ranking:")
-          println(highestRankingRestaurant)
-        case "4" =>
-          val restaurantsByCountry = restaurantData.groupBy(_.location.country)
-          println("Restaurants grouped by country:")
-          restaurantsByCountry.foreach { case (country, restaurants) =>
-            println(s"Country: $country")
-            restaurants.foreach(println)
-          }
-        case "5" =>
-          val restaurantCountByCity = restaurantData.groupBy(_.location.city).mapValues(_.size)
-          println("Restaurant count by city:")
-          restaurantCountByCity.foreach { case (city, count) =>
-            println(s"$city: $count")
-          }
-        case "Exit" =>
-          println("Exiting the program...")
-        case _ =>
-          println("Invalid choice. Please enter a number between 1 and 5.")
-      }
-      println()
-    }
+    restaurantData
   }
 }
