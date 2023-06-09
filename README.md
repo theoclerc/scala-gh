@@ -28,7 +28,7 @@ The project contains the following Scala files:
 
 3. **DataReader.scala**: Provides a utility to read restaurant data from a CSV file.
 
-4. **ServicesRestaurant.scala**: Provides services for processing restaurant data, including filtering highly rated restaurants, calculating average menu prices, finding the restaurant with the highest ranking, grouping restaurants by country, and counting the number of restaurants in each city.
+4. **ServicesRestaurant.scala**: Provides services for processing restaurant data, including filtering highly rated restaurants, calculating average stars by country, finding the restaurant with David as manager, grouping restaurants by country, and counting the number of restaurants in each city.
 
 To run the program, execute the `Main` object in your Scala IDE. Follow the on-screen instructions to choose an action from the menu.
 
