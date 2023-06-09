@@ -22,12 +22,12 @@ case class RestaurantData(
     s"""
        |Ranking: $ranking
        |Restaurant: $restaurant
-       |Location: $location
+       |Location: ${location.city+", "+location.country+", ["+location.longitude+", "+location.latitude+"]"}
        |Stars: ${stars.getOrElse("N/A")}
-       |Chef: $chef
-       |Manager: $manager
+       |Chef: ${chef.name}
+       |Manager: ${manager.name}
        |Website: $website
-       |Price: $price
+       |Price: ${price.menu+ " "+price.currency}
        |Description: $description
        |""".stripMargin
   }
